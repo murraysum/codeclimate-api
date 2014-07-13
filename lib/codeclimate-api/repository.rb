@@ -13,21 +13,37 @@ module Codeclimate
         @branch = attrs[:branch]
         @created_at = attrs[:created_at]
         @last_snapshot = Codeclimate::Api::Snapshot.new(attrs[:last_snapshot])
-        @previous_snapshot = Codeclimate::Api::Snapshot.new(attrs[:previous_snapshot])
+        if attrs[:previous_snapshot].nil?
+          @previous_snapshot = nil
+        else
+          @previous_snapshot = Codeclimate::Api::Snapshot.new(attrs[:previous_snapshot])
+        end
       end
 
       # Public: Whether the GPA has improved between repository snapshots
       def improvement?
-        last_snapshot.gpa > previous_snapshot.gpa
+        if previous_snapshot.nil?
+          false
+        else
+          last_snapshot.gpa > previous_snapshot.gpa
+        end
       end
 
       # Public: Whether the GPA has declined between repository snapshots
       def decline?
-        last_snapshot.gpa < previous_snapshot.gpa
+        if previous_snapshot.nil?
+          false
+        else
+          last_snapshot.gpa < previous_snapshot.gpa
+        end
       end
 
       def difference
-        (last_snapshot.gpa - previous_snapshot.gpa).abs
+        if previous_snapshot.nil?
+          0.0
+        else
+          (last_snapshot.gpa - previous_snapshot.gpa).abs
+        end
       end
 
       def self.find(id, branch = nil)
