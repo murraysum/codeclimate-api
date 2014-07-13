@@ -11,7 +11,7 @@ module Codeclimate
         @name = attrs[:name] 
         @url = attrs[:url]
         @branch = attrs[:branch]
-        @created_at = attrs[:created_at]
+        @created_at = Time.at(attrs[:created_at]).to_datetime
         @last_snapshot = Codeclimate::Api::Snapshot.new(attrs[:last_snapshot])
         if attrs[:previous_snapshot].nil?
           @previous_snapshot = nil
