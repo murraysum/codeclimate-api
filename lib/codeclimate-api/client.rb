@@ -13,17 +13,17 @@ module Codeclimate
       end
 
       def get(path, options = {})
-        response = request(path, options)
+        response = request('GET', path, options)
         JSON.parse(response.body, :symbolize_names => true)
       end
 
       def post(path, options = {})
-
+        response = request('POST', path, options)
       end
 
       private
 
-      def request(path, options = {})
+      def request(type, path, options = {})
         uri = build_uri(path, options)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
@@ -31,9 +31,7 @@ module Codeclimate
 
         puts uri
 
-        request = Net::HTTP::Get.new(uri.request_uri)
-
-        response = http.request(request)
+        response = http.send_request(type, uri.request_uri)
       end
 
       def build_uri(path, opts)
