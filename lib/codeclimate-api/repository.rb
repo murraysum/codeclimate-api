@@ -20,6 +20,21 @@ module Codeclimate
         end
       end
 
+      def self.find(id, branch = nil)
+        path = branch.nil? ? "repos/#{id}" : "repos/#{id}/branches/#{branch}"
+        Codeclimate::Api::Request.find(path, handler)
+      end
+
+      def self.refresh(id, branch = nil)
+        path = branch.nil? ? "repos/#{id}/refresh" : "repos/#{id}/branches/#{branch}/refresh"
+        Codeclimate::Api::Request.create(path)
+      end
+
+      # Public: Refresh the current repository and branch
+      def refresh
+        Codeclimate::Api::Repository.refresh(id, branch)
+      end
+
       # Public: Whether the GPA has improved between repository snapshots
       def improvement?
         if previous_snapshot.nil?
@@ -44,16 +59,6 @@ module Codeclimate
         else
           (last_snapshot.gpa - previous_snapshot.gpa).abs
         end
-      end
-
-      def self.find(id, branch = nil)
-        path = branch.nil? ? "repos/#{id}" : "repos/#{id}/branches/#{branch}"
-        Codeclimate::Api::Request.find(path, handler)
-      end
-
-      def self.refresh(id, branch = nil)
-        path = branch.nil? ? "repos/#{id}/refresh" : "repos/#{id}/branches/#{branch}/refresh"
-        Codeclimate::Api::Request.create(path)
       end
 
       private
