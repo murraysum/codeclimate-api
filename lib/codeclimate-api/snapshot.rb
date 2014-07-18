@@ -19,6 +19,45 @@ module Codeclimate
         @gpa = attrs[:gpa]
         @covered_percent = attrs[:covered_percent]
       end
+
+      # Public: Whether the GPA has improved between repository snapshots.
+      #
+      # previous_snapshot - a previous snapshot to be compared.
+      #
+      # Returns a boolean if there has been an improvement.
+      def improvement?(previous_snapshot)
+        if previous_snapshot.nil?
+          false
+        else
+          self.gpa > previous_snapshot.gpa
+        end
+      end
+
+      # Public: Whether the GPA has declined between repository snapshots.
+      #
+      # previous_snapshot - a previous snapshot to be compared.
+      #
+      # Returns a boolean if there has been a decline.
+      def decline?(previous_snapshot)
+        if previous_snapshot.nil?
+          false
+        else
+          self.gpa < previous_snapshot.gpa
+        end
+      end
+
+      # Public: The absolute difference in GPA between repository snapshots.
+      #
+      # previous_snapshot - a previous snapshot to be compared.
+      #
+      # Returns the absolute difference.
+      def difference(previous_snapshot)
+        if previous_snapshot.nil?
+          0.0
+        else
+          (self.gpa - previous_snapshot.gpa).abs
+        end
+      end
     end
   end
 end

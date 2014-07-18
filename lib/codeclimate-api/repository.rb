@@ -55,30 +55,24 @@ module Codeclimate
       end
 
       # Public: Whether the GPA has improved between repository snapshots.
+      #
+      # Returns a boolean if there has been an improvement.
       def improvement?
-        if previous_snapshot.nil?
-          false
-        else
-          last_snapshot.gpa > previous_snapshot.gpa
-        end
+        last_snapshot.improvement?(previous_snapshot)
       end
 
       # Public: Whether the GPA has declined between repository snapshots.
+      #
+      # Returns a boolean if there has been a decline.
       def decline?
-        if previous_snapshot.nil?
-          false
-        else
-          last_snapshot.gpa < previous_snapshot.gpa
-        end
+        last_snapshot.decline?(previous_snapshot)
       end
 
       # Public: The absolute difference in GPA between repository snapshots.
+      #
+      # Returns the absolute difference.
       def difference
-        if previous_snapshot.nil?
-          0.0
-        else
-          (last_snapshot.gpa - previous_snapshot.gpa).abs
-        end
+        last_snapshot.difference(previous_snapshot)
       end
 
       private
