@@ -1,4 +1,7 @@
 require 'date'
+require 'net/http'
+require 'uri'
+require 'json'
 
 require "codeclimate-api/version"
 require "codeclimate-api/configuration"

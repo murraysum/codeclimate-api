@@ -5,6 +5,11 @@ module Codeclimate
       attr_reader :id, :repository_id, :commit_sha, :committed_at,
         :finished_at, :gpa, :covered_percent
 
+      # Internal: Build a new instance of Codeclimate::Api::Snapshot
+      #
+      # attrs - the attributes to initialize the snapshot.
+      #
+      # Returns an instance of Codeclimate::Api::Snapshot.
       def initialize(attrs)
         @id = attrs[:id]
         @repository_id = attrs[:repo_id]
