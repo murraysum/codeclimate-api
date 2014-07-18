@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Codeclimate::Api::VERSION
   spec.authors       = ["Murray Summers"]
   spec.email         = ["murray.sum@gmail.com"]
-  spec.description   = %q{Write a gem description}
-  spec.summary       = %q{Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{A Ruby Library for the Code Climate API}
+  spec.summary       = %q{Code Climate API}
+  spec.homepage      = "https://github.com/murraysum/codeclimate-api"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
