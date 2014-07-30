@@ -46,16 +46,16 @@ module Codeclimate
         end
       end
 
-      # Public: The absolute difference in GPA between repository snapshots.
+      # Public: The difference in GPA between repository snapshots.
       #
       # previous_snapshot - a previous snapshot to be compared.
       #
-      # Returns the absolute difference.
+      # Returns the difference.
       def difference(previous_snapshot)
         if previous_snapshot.nil?
           0.0
         else
-          (self.gpa - previous_snapshot.gpa).abs
+          (self.gpa - previous_snapshot.gpa)
         end
       end
     end
